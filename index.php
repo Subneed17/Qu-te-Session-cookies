@@ -1,5 +1,22 @@
 <?php require 'inc/data/products.php'; ?>
 <?php require 'inc/head.php'; ?>
+  
+<?php
+    if(isset($_GET['add_to_cart'])){
+        // si pas de panier le creer
+        if (!isset($_SESSION['panier'])){
+            $_SESSION['panier']=array();
+        }
+        if (!isset($_SESSION['panier'][$_GET['add_to_cart']])){
+            $_SESSION['panier'][$_GET['add_to_cart']]=array();
+            $_SESSION['panier'][$_GET['add_to_cart']]['quantite']=1;
+        }
+        else{
+            $_SESSION['panier'][$_GET['add_to_cart']]['quantite']+=1;
+        }
+        header('Location: /index.php');
+    }
+?>
 <section class="cookies container-fluid">
     <div class="row">
         <?php foreach ($catalog as $id => $cookie) { ?>
